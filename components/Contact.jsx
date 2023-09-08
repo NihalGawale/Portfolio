@@ -35,8 +35,6 @@ const Contact = () => {
 
   const sendEmail = (e) => {
     e.preventDefault();
-
-    console.log(e, form.current, "-----");
     emailjs
       .sendForm(
         "service_y1pu6e7",
@@ -48,6 +46,9 @@ const Contact = () => {
         (result) => {
           console.log(result.text);
           console.log("message sent");
+          setFullName("");
+          setEmail("");
+          setMessage("")
         },
         (error) => {
           console.log(error.text);
@@ -55,11 +56,7 @@ const Contact = () => {
       );
   };
 
-  //   const handleSubmit = () => {
-  //     console.log(firstName, lastName, email, phoneNumber, subject, message);
-  //   };
-
-  const notify = () => {
+  const notify = async() => {
     if (fullName === "") {
       toast.error("Please enter your full name", {
         position: toast.POSITION.BOTTOM_LEFT,
@@ -69,11 +66,15 @@ const Contact = () => {
         position: toast.POSITION.BOTTOM_LEFT,
       });
     } else {
-      toast.success("Message sent successfully!", {
+     
+      await toast.success("Message sent successfully!", {
         position: toast.POSITION.BOTTOM_LEFT,
       });
+      
+  
     }
   };
+
   return (
     <ThemeProvider theme={theme === "dark" ? darkTheme : ""}>
       <div id="contact" className="w-full lg:h-screen">
@@ -124,24 +125,28 @@ const Contact = () => {
             </div>
 
             {/* right */}
-            <div id="form" className="col-span-3 w-full h-auto shadow-xl shadow-gray-400 dark:shadow-md dark:shadow-gray-700 rounded-xl lg:p-4">
+            <div
+              id="form"
+              className="col-span-3 w-full h-auto shadow-xl shadow-gray-400 dark:shadow-md dark:shadow-gray-700 rounded-xl lg:p-4"
+            >
               <div className="p-4 flex items-center justify-center">
                 <form ref={form} onSubmit={sendEmail}>
                   <div className="grid md:grid-cols-2 gap-8 w-full py-2 ">
                     <div className="flex flex-col">
                       <TextField
-                        id="outlined-basic"
+                        id="fullName"
                         label="Full Name"
                         variant="outlined"
                         color="primary"
                         name="user_name"
                         required={true}
+                        value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                       />
                     </div>
                     <div className="flex flex-col">
                       <TextField
-                        id="outlined-basic"
+                        id="email"
                         label="Email"
                         variant="outlined"
                         color="primary"
@@ -149,50 +154,34 @@ const Contact = () => {
                         maxLength="64"
                         name="user_email"
                         required={true}
+                        value={email}
                         pattern=".+@beststartupever.com"
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
 
-                    {/* <div className="flex flex-col col-span-2">
-                      <TextField
-                        id="outlined-basic"
-                        label="Email"
-                        variant="outlined"
-                        color="primary"
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                    </div> */}
-
-                    {/* <div className="flex flex-col col-span-2">
-                      <TextField
-                        id="outlined-basic"
-                        name="email"
-                        label="Subject"
-                        variant="outlined"
-                        color="primary"
-                        onChange={(e) => setSubject(e.target.value)}
-                      />
-                    </div> */}
-
                     <div className="flex flex-col col-span-2 ">
                       <TextField
-                        id="outlined-basic"
+                        id="message"
                         name="message"
                         label="Message"
                         variant="outlined"
                         multiline
                         rows={4}
                         color="primary"
+                        value={message}
                         onChange={(e) => setMessage(e.target.value)}
                       />
                     </div>
                     <div className="flex flex-col col-span-2  ">
                       <button
+                        id="submit-btn"
                         className="rounded-lg dark:shadow-none py-2 bg-blue-600"
                         type="submit"
                         value="Send"
-                        onClick={() => notify()}
+                        onClick={() => {
+                          notify();
+                        }}
                       >
                         Submit
                       </button>
