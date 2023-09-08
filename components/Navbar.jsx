@@ -103,7 +103,7 @@ const Navbar = () => {
                       </Link>
                     </div>
                     <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-100">
-                      <Link href="/#contact">
+                      <Link href="/#form">
                         <EmailOutlinedIcon onClick={handleNav}/>
                       </Link>
                     </div>
