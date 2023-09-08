@@ -98,7 +98,7 @@ const Navbar = () => {
                       </Link>
                     </div>
                     <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-100">
-                      <Link href="https://github.com/NihalGawale?tab=repositories">
+                      <Link href="https://github.com/NihalGawale/Portfolio">
                       <GitHubIcon />
                       </Link>
                     </div>
